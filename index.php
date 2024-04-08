@@ -34,7 +34,7 @@
             <a href="pill_chat.php"><div class="small-box">챗봇</div></a>
             <a href="index.php"><div class="small-box">약 인식</div></a>
             <a href="pill_info.php"><div class="small-box">약 정보</div></a>
-            <a href="page3.php"><div class="small-box">다이어리</div></a>
+            <a href="calendar.php"><div class="small-box">다이어리</div></a>
         </div>
     </div>
 </body>

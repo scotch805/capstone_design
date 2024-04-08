@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+ 
+ /*#2 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+ 
+ /*#3 */
+button {
+  /* button 요소에 기본적으로 설정되는 스타일 속성 초기화 */
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+ 
+ /*#4 */
+body {
+  /*display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;*/
+  display: flex;
+  flex-direction: row;
+  background: rgb(238, 227, 207);
+}
+
+.location1 {
+  width: 50%;
+  /*height: 100%;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #008aff;
+}
+
+.lacation2 {
+  background-color: rgb(238, 227, 126);
+  width: 50%;
+  height: 70%;
+}
+
+/*#5 */
+.wrapper {
+    width: 450px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+  }
+   
+  /*#6*/
+  .wrapper .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  .wrapper .nav .current-date {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .wrapper .nav button {
+    width: 38px;
+    height: 38px;
+    font-size: 30px;
+    color: #878787;
+  }
+
+  /*#7*/
+.calendar ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .calendar .weeks li {
+    font-weight: 500;
+  }
+  .calendar .days {
+    margin-bottom: 20px;
+  }
+  .calendar ul li {
+    /*#8*/
+    width: calc(100% / 7);
+    /*#9*/
+    position: relative;
+  }
+  .calendar .days li {
+    /*#10*/
+    z-index: 1;
+    margin-top: 30px;
+    cursor: pointer;
+  }
+   
+  /*#11*/
+  .days li.inactive {
+    background: #aaa;
+  }
+
+  .days li.active {
+    color: #fff;
+  }
+  .calendar .days li::before {
+    position: absolute;
+    content: '';
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: -1;
+  }
+  .days li:hover::before {
+    background: #f2f2f2;
+  }
+  .days li.active::before {
+    background: #008aff;
+  }
+
+  input {
+    font-size: 15px;
+    background: none;
+    border: none;
+  }
