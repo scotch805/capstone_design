@@ -40,7 +40,7 @@
           <li>금</li>
           <li>토</li>
         </ul>
-        
+        <!--------------함수를 작동시키기 위해서 날짜를 변수로?------------->
         <ul class="days">
           <?php for($blank =0; $blank < $start_week; $blank++): ?> <!-- start-week(숫자)를 이용해서 -->
             <li> </li>  <!-- 빈 요일은 공백으로 채우기 -->
@@ -78,18 +78,52 @@
       <input type="submit" name="test" id="test" value="RUN" /><br/>
   </form>
 
-<?php // php function
+  <?php // php function
 
-  function testfun()
-  {
-    echo "Your test function on button click is working";
-  }
+    function testfun()
+    {
+      echo "Your test function on button click is working";
+    }
 
-  if(array_key_exists('test',$_POST)){    // name의 test를 이용
-    testfun();
-  }
+    if(array_key_exists('test',$_POST)){    // name="test"인 input을 누르면 함수가 작동
+      testfun();
+    }
 
   ?>
 
+  <!-- 여기서부터 Todo -->
+    <div class="todo-wrapper">
+      <div class="todo-title">Todos</div>
+      <div class="todo-box">
+            <div class="todo-top">
+              <div class="left-items">3 items left</div>
+              <div class="button-group">    <!--button 클릭시 mysql과 연동 되도록 -->
+                  <button class="show-all-btn selected" data-type="all">All</button>
+                  <button class="show-active-btn" data-type="active">Active</button>
+                  <button class="show-completed-btn" data-type="completed">Completed</button>
+              </div>
+              <button class="clear-completed-btn">Add & Modify</button> <!-- 이 부분을 추가(수정)으로 바꾸기, 팝업 이벤트로?-->
+            </div>
+    
+            <ul class="todo-list">    <!--checkbox, delBtn 항목 클릭시 mysql과 연동 -->
+                  <li class="todo-item checked">
+                    <div class="checkbox">✔</div>
+                    <div class="todo">영양제 (멀티 비타민 2알)</div>
+                    <button class="delBtn">x</button>
+                </li>
+                <li class="todo-item">
+                    <div class="checkbox"></div>
+                    <div class="todo">병원약 (소염제, 근이완제)</div>
+                    <button class="delBtn">x</button>
+                </li>
+                <li class="todo-item">
+                    <div class="checkbox"></div>
+                    <div class="todo">탈모약 </div>
+                    <button class="delBtn">x</button>
+                </li>
+            </ul>
+      </div>          
+      <!--<p class='info'>더블클릭 시 수정</p>-->
+    </div>
 </div>
 
