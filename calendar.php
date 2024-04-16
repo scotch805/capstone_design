@@ -40,7 +40,7 @@
           <li>금</li>
           <li>토</li>
         </ul>
-        <!--------------함수를 작동시키기 위해서 날짜를 변수로?------------->
+        <!--------------함수를 작동시키기 위해서 날짜를 변수로? NO, $value = $_POST['test']; 으로 변수에 값 할당 가능( 참조 https://dev4u.tistory.com/256 )------------->
         <ul class="days">
           <?php for($blank =0; $blank < $start_week; $blank++): ?> <!-- start-week(숫자)를 이용해서 -->
             <li> </li>  <!-- 빈 요일은 공백으로 채우기 -->
@@ -59,7 +59,7 @@
                 <?php if($n == $today): ?> <!-- 오늘 날짜면 active 설정 넣기 -->
                   <li class = "active">
                     <form method="post">
-                      <input type="submit" name="test" id="test" value= <?php echo $n++ ?> /> <!-- 나머지는  -->
+                      <input type="submit" name="test" id="test" value= <?php echo $n++ ?> />
                     </form>
                   </li>
                 <?php endif ?>
@@ -82,7 +82,10 @@
 
     function testfun()
     {
-      echo "Your test function on button click is working";
+      echo "Your test function on button click is working <br/>";
+      $value = $_POST['test'];    // $year, $month, $value 값을 가지고 mysql 데이터 통신(?)
+      print("날짜: " . $value . "<br/>");
+      echo "날짜: " . $value;   // 두가지 형식으로 출력 가능
     }
 
     if(array_key_exists('test',$_POST)){    // name="test"인 input을 누르면 함수가 작동
