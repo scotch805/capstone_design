@@ -2,7 +2,7 @@
 
 $ch = curl_init();
 $url = 'https://api.openai.com/v1/chat/completions';
-$api_key = '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'; 
+$api_key = 'sk-proj-HNxLvP0eLABMlD0caquaT3BlbkFJiVfcKO4SituBrlx9AfKr'; 
 
 
 

@@ -13,9 +13,41 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        .info_box{
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .info_box .title{
+            margin-left: 0%;
+            display: inline-block;
+        }
+        .info_box .login {
+            display: inline-block;
+            position: relative;
+            left: 40%;
+        }
+        .title_name{
+            font-size: 28px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="info_box">
+        <div class="title" onclick=window.open("main.php","_self")>
+            <p class="title_name">방구석 약상자</p>
+        </div>
+
+        <div class="login" onclick=window.open("/","_self")>
+            <span class="material-symbols-outlined">account_circle</span>
+        </div>
+    </div>
+
     <div class="container">
         <div class="card mt-5">
             <form onsubmit="return false;">

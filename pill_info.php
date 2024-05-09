@@ -11,6 +11,7 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>결과 보기 예시</title>
 
     <style>
@@ -126,37 +127,82 @@
             font-size: 80px;
             /* 원하는 글자 크기로 조절 */
         }
+
+        /* 홈 화면 등 */
+        .info_box{
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .info_box .title{
+            margin-left: 0%;
+            display: inline-block;
+        }
+        .info_box .login {
+            display: inline-block;
+            position: relative;
+            left: 40%;
+        }
+        .title_name{
+            font-size: 28px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+    <div class="info_box">
+        <div class="title" onclick=window.open("main.php","_self")>
+            <p class="title_name">방구석 약상자</p>
+        </div>
+
+        <div class="login" onclick=window.open("/","_self")>
+            <span class="material-symbols-outlined">account_circle</span>
+        </div>
+    </div>
+
     <div class="container">
 
         <div class="form-check">
             <label>
-                <input type="checkbox" class="checkbox" value="1"> 펠로엔정
+                <input type="checkbox" class="checkbox" value="1"> 화이투벤큐노즈
             </label>
             <label>
-                <input type="checkbox" class="checkbox" value="2"> 타이레놀정
+                <input type="checkbox" class="checkbox" value="2"> 엑쎈코
             </label>
             <label>
-                <input type="checkbox" class="checkbox" value="3"> 아진팜정
+                <input type="checkbox" class="checkbox" value="3"> 이지엔6프로
             </label>
             <label>
-                <input type="checkbox" class="checkbox" value="4"> 애스펜정
+                <input type="checkbox" class="checkbox" value="4"> 세노바퀵
             </label>
             <label>
-                <input type="checkbox" class="checkbox" value="5"> 네오티가손
+                <input type="checkbox" class="checkbox" value="5"> 속시나제
             </label>
             <label>
-                <input type="checkbox" class="checkbox" value="6"> 테라싸이클린캡슐
+                <input type="checkbox" class="checkbox" value="6"> 노텍정
+            </label>
+            <!-- <label>
+                <input type="checkbox" class="checkbox" value="7"> 맥쎈
             </label>
             <label>
-                <input type="checkbox" class="checkbox" value="7"> 미노씬캡슐
+                <input type="checkbox" class="checkbox" value="8"> 콜대원코드
             </label>
             <label>
-                <input type="checkbox" class="checkbox" value="8"> 나제론오디정
+                <input type="checkbox" class="checkbox" value="9"> 콜대원노즈
             </label>
+            <label>
+                <input type="checkbox" class="checkbox" value="10"> 노보민
+            </label>
+            <label>
+                <input type="checkbox" class="checkbox" value="11"> 소보민
+            </label>
+            <label>
+                <input type="checkbox" class="checkbox" value="12"> 후시딘
+            </label>
+            <label>
+                <input type="checkbox" class="checkbox" value="13"> 마데카솔
+            </label> -->
             <!-- 다른 체크박스 항목들도 동일하게 추가 -->
         </div>
 
@@ -221,14 +267,14 @@
 
 
             const results = {
-                '1': { name: '펠로엔정', manu: '휴온스', cate: '전문의약품', dosa: '성인 : 1회 1정, 1일 3회', effi: '골관절염, 류마티스관절염, 요통', admi: '식후 경구 투여' },
-                '2': { name: '타이레놀정500mg', manu: '한국존슨앤드존슨', cate: '일반의약품', dosa: '만 12세 이상 소아 및 성인: 1회 1~2정씩 1일 3-4회 (4-6시간 마다)', effi: '두통, 신경통, 근육통, 월경통, 염좌통', admi: '필요시 경구 투여' },
-                '3': { name: '아진팜정', manu: '일양약품', cate: '일반의약품', dosa: '15세 이상의 성인 1회 1정, 1일 3회', effi: '소화불량, 식욕감퇴(식욕부진), 과식, 체함, 소화불량으로 인한 위부팽만감', admi: '경구 투여' },
-                '4': { name: '애스펜정', manu: '휴온스', cate: '전문의약품', dosa: '성인 : 덱시부프로펜으로서 1회 300 mg을 1일 2～4회', effi: '류마티스관절염, 관절증,강직척추염, 외상 및 수술 후 통증성 부종 또는 염증', admi: '경구 투여' },
-                '5': { name: '네오티가손10mg', manu: '휴온스', cate: '전문의약품', dosa: '1일 25 ～ 30 mg을 약 2 ～ 4주간', effi: '국소 또는 전신화된 농포성 건선, 심상성 건선', admi: '경구 투여' },
-                '6': { name: '테라싸이클린캡슐250mg', manu: '종근당', cate: '전문의약품', dosa: '성인 : 1일 1 g을 4회 분할 투여 <br>12세 이상의 소아 : 1일 체중 kg당 25 ～ 50 mg을 4회 분할 투여', effi: '유효균종 : 테트라사이클린염산염에 감수성인 리케차, 폐렴미코플라스마, 육아종피막성구균, 트라코마 클라미디아 <br>적응증 : 발진티푸스, 발진열, 양충병(쯔쯔가무시병), 미코플라스마폐렴, 비둘기병, 앵무병, 서혜육아종', admi: '경구 투여' },
-                '7': { name: '미노씬캡슐50mg', manu: '에스케이케미카', cate: '전문의약품', dosa: '성인 : 초회 200mg을 투여 후 12시간마다 100 mg 투여<br>12세 이상의 소아 : 초회 체중 Kg당 4mg 투여 후 12시간마다 체중 Kg당 2mg 투여', effi: '유효균종 : 리케차, 폐렴미코플라스마, 육아종피막성구균, 트라코마 클라미디아, 연성하감균, 콜레라균, 페스트균<br> 적응증 : 발진티푸스, 발진열, 양충병(쯔쯔가무시병), 큐열, 진드기열, 미코플라스마폐렴, 앵무병', admi: '경구 투여' },
-                '8': { name: '나제론오디정0.1mg', manu: '보령', cate: '전문의약품', dosa: '성인 : 항암제(시스플라틴 등) 투여 전 1시간 이내에 1일 1회 0.1 mg을 투여', effi: '항암제(시스플라틴 등) 투여로 인한 구역 및 구토의 방지', admi: '경구 투여' }
+                '1': { name: '화이투벤큐노즈', manu: '알피바이오', cate: '일반의약품', dosa: '만 15세 이상 : 1회 2정, 1일 3회, 만 7세 이상 만 15세 미만 : 1일 3회, 1회 1캡슐', effi: '콧물, 코막힘, 재채기, 인후(목구멍)통, 기침, 가래, 오한(춥고 떨리는 증상), 발열, 두통, 관절통, 근육통', admi: '식후 경구 투여' },
+                '2': { name: '엑쎈코', manu: '알피바이오', cate: '일반의약품', dosa: '만 15세 이상 및 성인 : 1회 2캡슐, 1일 3회', effi: '콧물, 코막힘, 재채기, 인후(목구멍)통, 오한(춥고 떨리는 증상), 발열, 두통, 관절통, 근육통', admi: '식후 경구 투여' },
+                '3': { name: '이지엔6프로', manu: '대웅제약', cate: '일반의약품', dosa: '성인: 1회 300 mg을 1일 2～4회 경구투여', effi: '관절염, 류마티스관절염, 염증', admi: '경구 투여' },
+                '4': { name: '세노바퀵', manu: '일동제약', cate: '일반의약품', dosa: '성인 및 6세 이상의 소아 : 1일 1회 10mg 취침 전에 경구투여', effi: '알레르기성 비염(코염), 알레르기성 결막염, 만성 특발성(원인불명의) 두드러기', admi: '경구 투여' },
+                '5': { name: '속시나제삼중정', manu: '일동제약', cate: '일반의약품', dosa: '성인 1회 2정 1일 3회', effi: '위산과다, 속쓰림, 위부불쾌감, 위부팽만감, 식체(위체), 구역, 구토, 위통, 신트림, 소화불량', admi: '매식간 복용' },
+                '6': { name: '노텍정', manu: '미래바이오제약', cate: '일반의약품', dosa: '성인 및 6세 이상의 소아 : 1일 1회 10mg 취침 전에 경구 투여한다.', effi: '알레르기성 비염(코염), 알레르기성 결막염, 만성 특발성(원인불명의) 두드러기, 습진, 피부염', admi: '경구 투여' },
+            //     '7': { name: '미노씬캡슐50mg', manu: '에스케이케미카', cate: '일반의약품', dosa: '성인 : 초회 200mg을 투여 후 12시간마다 100 mg 투여<br>12세 이상의 소아 : 초회 체중 Kg당 4mg 투여 후 12시간마다 체중 Kg당 2mg 투여', effi: '유효균종 : 리케차, 폐렴미코플라스마, 육아종피막성구균, 트라코마 클라미디아, 연성하감균, 콜레라균, 페스트균<br> 적응증 : 발진티푸스, 발진열, 양충병(쯔쯔가무시병), 큐열, 진드기열, 미코플라스마폐렴, 앵무병', admi: '경구 투여' },
+            //     '8': { name: '나제론오디정0.1mg', manu: '보령', cate: '일반의약품', dosa: '성인 : 항암제(시스플라틴 등) 투여 전 1시간 이내에 1일 1회 0.1 mg을 투여', effi: '항암제(시스플라틴 등) 투여로 인한 구역 및 구토의 방지', admi: '경구 투여' }
             };
 
             checkboxes.forEach(checkbox => {

@@ -1,3 +1,4 @@
+<head>
 <link rel="stylesheet" href="calendar_design.css">
 
 <?php 
@@ -13,6 +14,7 @@
 	$total_day = date('t', $time); // 2. 현재 달의 총 날짜
 	$total_week = ceil(($total_day + $start_week) / 7);  // 3. 현재 달의 총 주차
 ?>
+</head>
 
 <div class ="location1">
   <div class="wrapper">

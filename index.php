@@ -1,41 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>홈페이지</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>로그인</title>
     <style>
-        /* CSS로 디자인 요소 추가 */
-        .container {
+        .info_box{
             width: 80%;
             margin: 0 auto;
             text-align: center;
         }
-        .big-box {
-            background-color: lightgray;
-            padding: 20px;
-            margin-top: 50px;
-        }
-        .small-box {
+        .info_box .title{
+            margin-left: 0%;
             display: inline-block;
-            width: 100px;
-            height: 100px;
-            background-color: lightblue;
-            margin: 0 10px;
-            cursor: pointer; /* 클릭 가능한 커서로 변경 */
+        }
+        .info_box .login {
+            display: inline-block;
+            position: relative;
+            left: 40%;
+        }
+        .title_name{
+            font-size: 28px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>방구석 약상자</h1>
+<div class="info_box">
+        <div class="title" onclick=window.open("main.php","_self")>
+            <p class="title_name">방구석 약상자</p>
+        </div>
 
-        <div class="big-box">
-            <a href="pill_chat.php"><div class="small-box">챗봇</div></a>
-            <a href="index.php"><div class="small-box">약 인식</div></a>
-            <a href="pill_info.php"><div class="small-box">약 정보</div></a>
-            <a href="calendar.php"><div class="small-box">다이어리</div></a>
+        <div class="login" onclick=window.open("/","_self")>
+            <span class="material-symbols-outlined">account_circle</span>
         </div>
     </div>
+
+    <h2>로그인</h2>
+    <form action="login.php" method="post">
+        아이디: <input type="text" name="ID" required><br>
+        비밀번호: <input type="password" name="Password" required><br>
+        <input type="submit" value="로그인">
+    </form>
+    <p>계정이 없으신가요? <a href="register.php">회원가입</a></p>
 </body>
 </html>
