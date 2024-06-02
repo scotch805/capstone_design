@@ -1,12 +1,11 @@
 <head>
   <link rel="stylesheet" href="calendar_design.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
-
+  
   <?php   //변수 설정
     $year = isset($_GET['year']) ? $_GET['year'] : date('Y');     // GET으로 넘겨 받은 year값이 있다면 넘겨 받은걸 year변수에 적용하고 없다면 현재 년도
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');    // GET으로 넘겨 받은 month값이 있다면 넘겨 받은걸 month변수에 적용하고 없다면 현재 월
-    $today = isset($_GET['day']) ? $_GET['day'] : date('j');  if($today < 10) $today = isset($_GET['day']) ? $_GET['day'] : date('d'); 
+    $today = isset($_GET['day']) ? $_GET['day'] : date('j');  if($today < 10) $today = isset($_GET['day']) ? $_GET['day'] : date('d');  //한자리 수 날짜의 형식은 01 형식으로 해야 mysql과 형식이 맞음 
 
     $date = "$year-$month-$today"; // 현재 날짜
     $time = strtotime("$year-$month-01"); // 달력의 첫 날 타임스탬프
@@ -32,7 +31,7 @@
 
   ?>
 
-  <?php //달력의 날짜 클릭시 작동하는 함수, 클릭한 날짜를 반환
+  <?php   //달력의 날짜 클릭시 작동하는 함수, 클릭한 날짜를 반환
       function testfun()  
       {
         global $year, $month, $today;   // 위 생성한 전역변수 사용
@@ -46,16 +45,15 @@
       }
   ?>
 
-  <script>    // jquery, 달력 날짜(id=test), todo(id = reload_todo)를 사용
+  <script>    // jquery 새로고침 함수, 달력 날짜(id=test), todo(id = reload_todo)를 사용
     $(document).ready(function() {   // 이 라인 없어도 사용가능
       $('#test').click(function(){    // click 함수
         $('#reload_todo').load(location.href + " #reload_todo");  //새로고침 함수
       });
     });
   </script>
-</head>
 
-  <script>
+  <script>    // todo에 데이터를 추가하는 textbox 구현하는 함수
     function addTextbox() {
         var container = document.getElementById('textboxContainer');
 
@@ -74,21 +72,15 @@
             input.name ='textbox';
             input.id ='textbox';
 
-            // 새로운 삭제 버튼 생성, 이 버튼을 누르면 POST(이건 PHP니까..)로 값을 받는걸로?
+            // 새로운 삭제 버튼 생성
             var removeButton = document.createElement('button');
             removeButton.textContent = '삭제';
             removeButton.className = 'button';
             removeButton.type ='submit';
             removeButton.id ='click_submit';
             removeButton.onclick = function() {
-              //loaction.reload();
-              /*$(document).ready(function() {   // 이 라인 없어도 사용가능
-                $('#click_submit').click(function(){    // click 함수
-                  $('#reload_todo').load(location.href + " #reload_todo");  //새로고침 함수
-                });
-              });*/    
-              //container.removeChild(textboxContainer);    //주석쳤는데 왜 없어지지? submit 타입은 버튼 클릭을 하면 폼을 제출하고 새로고침이 되서
-            };
+              //container.removeChild(textboxContainer);    // removeButton이 함수 작동 없이 제출 후 사라지는 이유는? 
+            };  // submit 타입은 버튼 클릭을 하면 폼을 제출하고 새로고침이 되서, location.reload() 등 불필요
 
             // 텍스트박스와 삭제 버튼을 div에 추가
             textboxContainer.appendChild(input);
@@ -99,43 +91,45 @@
         }
     }
   </script>
-  <script>
-     $(document).on('submit', '#after_submit', function(event) {
-      //$("#after_submit").submit(function(){
+
+  <script>    //textbox 값이 제출 되면 작동하는 함수, id=after_submit 이용, db에 data 추가
+     $(document).on('submit', '#after_submit', function(event) {  //on()을 이용한 jqurey
+      //$("#after_submit").submit(function(){   //.submit()을 이용한 jqurey, 둘 다 사용 가능
         <?php    
           $add_todo_value = $_POST['textbox'];
 
           if($add_todo_value != ""){
-          $filtered = array(
-            'now_date'=>mysqli_real_escape_string($db, $date),
-            'todo'=>mysqli_real_escape_string($db, $add_todo_value),
-            'done'=>mysqli_real_escape_string($db, 0)
-          );
+            $filtered = array(
+              'now_date'=>mysqli_real_escape_string($db, $date),
+              'todo'=>mysqli_real_escape_string($db, $add_todo_value), 
+              'done'=>mysqli_real_escape_string($db, 0)
+            );
         
-          $Add_sql ="
-            INSERT INTO Todo
-              (now_date, todo, done)
-              VALUES (
-                '{$filtered['now_date']}',
-                '{$filtered['todo']}',
-                '{$filtered['done']}'
-                )
-          ";
+            $Add_sql ="
+              INSERT INTO Todo
+                (now_date, todo, done)
+                VALUES (
+                  '{$filtered['now_date']}',
+                  '{$filtered['todo']}',
+                  '{$filtered['done']}'
+                  )
+            ";
         
-          $Add_result = mysqli_query($db, $Add_sql);
-          if($Add_result === false){
-        
-            echo '저장하는 과정에서 문제가 생겼습니다.';
+            $Add_result = mysqli_query($db, $Add_sql);
+            if($Add_result === false){
+          
+              echo '저장하는 과정에서 문제가 생겼습니다.';
+            }
           }
-        }
-        $add_todo_value = "";
+          $add_todo_value = "";   // 제출된 값으로 위 if문을 계속 통과하므로, 값을 초기화 시켜줌
 
-        $sql = "SELECT * FROM Todo";      // sql을 재실행 해서 바로 적용
-        $result = mysqli_query($db, $sql);
+          $sql = "SELECT * FROM Todo";      // sql을 재실행 해서 submit으로 인한 새로고침이 될 때 변경 값을 적용
+          $result = mysqli_query($db, $sql);
         ?>
-        alert("done");
-        });
+      });
   </script>
+
+</head>
 
 <body>    <!--php if를 이용해서 월 넘기기, wrapper(달력)도 새로고침 수행? -->
   <div class ="location1">
@@ -198,7 +192,7 @@
 
   <div class="lacation2"> <!--다이어리 만들 위치-->
     
-    <form method="post"> <!-- *****얘 아래서 함수실행******* -->
+    <form method="post"> <!-- *****얘 아래서 함수실행******* 삭제 예정 -->
         <input type="submit" name="test" id="test" value="RUN" /><br/>
     </form>
 
@@ -212,12 +206,6 @@
           //$val = $_POST['textbox'];
           echo '<br>'. $today;
         }
-    ?>
-    <?php 
-      //if($add_todo_value != 0){
-        
-      //}
-      echo $add_todo_value
     ?>
     
     <!-- 여기서부터 Todo -->
@@ -256,7 +244,6 @@
                 <?php endwhile; ?>
               </ul>
         </div>          
-        <!--<p class='info'>더블클릭 시 수정</p>-->
       </div>
   </div>
 <body>
