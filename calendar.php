@@ -7,28 +7,6 @@
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');    // GET으로 넘겨 받은 month값이 있다면 넘겨 받은걸 month변수에 적용하고 없다면 현재 월
     $today = isset($_GET['day']) ? $_GET['day'] : date('j');  if($today < 10) $today = isset($_GET['day']) ? $_GET['day'] : date('d');  //한자리 수 날짜의 형식은 01 형식으로 해야 mysql과 형식이 맞음 
 
-    if ($month == 1)
-    {
-      $prev_month = 12;
-      $prev_year = $year - 1;
-    }
-    else
-    {
-      $prev_month = $month - 1;
-      $prev_year = $year;
-    }
-  
-    if ($month == 12)
-    {
-      $next_month = 1;
-      $next_year = $year + 1;
-    }
-    else
-    {
-      $next_month = $month + 1;
-      $next_year = $year;
-    }
-    
     $date = "$year-$month-$today"; // 현재 날짜
     $time = strtotime("$year-$month-01"); // 달력의 첫 날 타임스탬프
     $start_week = date('w', $time); // 1. 시작 요일
@@ -205,8 +183,8 @@
      $(document).on('submit', '#delBtn', function(event) {  //on()을 이용한 jqurey
       //$("#after_submit").submit(function(){   //.submit()을 이용한 jqurey, 둘 다 사용 가능
         <?php    
-          $delete_todo_value = $_POST['delete_data_todo'];
-          $delete_date_value = $_POST['delete_data_date'];
+          $delete_todo_value = $_POST['data_todo'];
+          $delete_date_value = $_POST['data_date'];
 
           if($delete_todo_value != ""){
             $filtered = array(
@@ -233,19 +211,60 @@
       });
   </script>
 
+  <script>  //수정(check) 버튼 동작
+    $("#checkBtn").submit(function(){
+      <?php
+        $update_value_todo = $_GET['data_todo'];
+        $update_value_date = $_GET['data_date'];
+        $update_value_done = $_GET['data_done'];
+  
+        if($update_value_done == '0'){
+          $filtered = array(
+            'now_date'=>mysqli_real_escape_string($db, $update_value_date),
+            'todo'=>mysqli_real_escape_string($db, $update_value_todo),
+            'done'=>mysqli_real_escape_string($db, $update_value_done)
+          );
+  
+          $update_sql ="UPDATE Todo SET done = 1
+          WHERE todo='{$filtered['todo']}' AND now_date='{$filtered['now_date']}';";
+  
+          $update_result = mysqli_query($db, $update_sql);
+        }
+        else if($update_value_done == '1'){
+          $filtered = array(
+            'now_date'=>mysqli_real_escape_string($db, $update_value_date),
+            'todo'=>mysqli_real_escape_string($db, $update_value_todo),
+            'done'=>mysqli_real_escape_string($db, $update_value_done)
+          );
+  
+          $update_sql ="UPDATE Todo SET done = 0
+          WHERE todo='{$filtered['todo']}' AND now_date='{$filtered['now_date']}';";
+  
+          $update_result = mysqli_query($db, $update_sql);
+        }
+
+        $sql = "SELECT * FROM Todo";
+        $result = mysqli_query($db, $sql);
+      ?>
+    });
+  </script>
+
+
 </head>
 
 <body>    <!--php if를 이용해서 월 넘기기, wrapper(달력)도 새로고침 수행? -->
   <div class ="location1">
     <div class="wrapper" id="calendar">
-        <header>
+      <header>
           <div class="nav">
-            <a href="?year=<?= $prev_year ?>&month=0<?= $prev_month ?>"><button id="prev">&lt;</button></a>
+            <button class="material-icons" onclick="left_btn()"> < </button>
             <!--<p class="current-date">2024년 4월 </p>-->
             <p calss="current-date">
-              <span><?= $year ?>년 <?= $month ?>월</span>
+              <?php
+                  echo "$year 년 $month 월"     
+              ?>
             </p>
-            <a href="?year=<?= $next_year ?>&month=0<?= $next_month ?>"><button id="next">&gt;</button></a>
+            <button class="material-icons" onclick="right_btn()"> > </button>
           </div>
         </header>
 
@@ -333,22 +352,32 @@
                 <?php while($row = mysqli_fetch_array($result)): ?>
                     <?php if($row['done'] == 1 and $row['now_date'] == $date): ?>
                         <li class="todo-item checked">
-                            <div class="checkbox">✔</div>
+                            <form method="get" id="checkBtn">
+                              <input type="hidden" id="data_todo" name="data_todo" value="<?php echo $row['todo'] ?>"/>
+                              <input type="hidden" id="data_date" name="data_date" value="<?php echo $row['now_date'] ?>"/>
+                              <input type="hidden" id="data_done" name="data_done" value="<?php echo $row['done'] ?>"/>
+                              <button type="submit" id="checkBtn" class="checkbox">✔</button>
+                            </form>
                             <div class="todo"><?php echo $row['todo']. "<br>"; ?></div>
                             <form method="post" id="delBtn">
-                              <input type="hidden" id="delete" name="delete" value="<?php echo $row['todo'] ?>"/>
-                              <input type="hidden" id="delete_data_date" name="delete_data_date" value="<?php echo $row['now_date'] ?>"/>
-                              <button class="delBtn" value=<?php echo $row['todo']; ?>>x</button>   <!-- form으로 작성, jquery .submit()을 이용 & -->
+                              <input type="hidden" id="data_todo" name="data_todo" value="<?php echo $row['todo'] ?>"/>
+                              <input type="hidden" id="data_date" name="data_date" value="<?php echo $row['now_date'] ?>"/>
+                              <button type="submit" class="delBtn">x</button>
                             </form>
                         </li>
                     <?php elseif($row['done'] == 0 and $row['now_date'] == $date): ?>
                         <li class="todo-item" id="todo_row">
-                            <div class="checkbox"></div>
+                            <form method="get" id="checkBtn">
+                              <input type="hidden" id="data_todo" name="data_todo" value="<?php echo $row['todo'] ?>"/>
+                              <input type="hidden" id="data_date" name="data_date" value="<?php echo $row['now_date'] ?>"/>
+                              <input type="hidden" id="data_done" name="data_done" value="<?php echo $row['done'] ?>"/>
+                              <button type="submit" id="checkBtn" class="checkbox"></button>
+                            </form>
                             <div class="todo"><?php echo $row['todo']. "<br>"; ?></div>
                             <form method="post" id="delBtn">
-                              <input type="hidden" id="delete_data_todo" name="delete_data_todo" value="<?php echo $row['todo'] ?>"/>
-                              <input type="hidden" id="delete_data_date" name="delete_data_date" value="<?php echo $row['now_date'] ?>"/>
-                              <button class="delBtn" value=<?php echo $row['todo']; ?>>x</button>   <!-- form으로 작성, jquery .submit()을 이용 & -->
+                              <input type="hidden" id="data_todo" name="data_todo" value="<?php echo $row['todo'] ?>"/>
+                              <input type="hidden" id="data_date" name="data_date" value="<?php echo $row['now_date'] ?>"/>
+                              <button type="submit" class="delBtn">x</button>
                             </form>
                         </li>
                     <? endif ?>
