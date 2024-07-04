@@ -1,0 +1,5 @@
+<IfModule mod_url.c>
+    checkURL On
+    ServerEncoding EUC-KR
+    ClientEncoding UTF-8
+</IfModule>

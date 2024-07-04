@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+ 
+ /*#2 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+ 
+ /*#3 */
+.location1 button {
+  /* button 요소에 기본적으로 설정되는 스타일 속성 초기화 */
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+ 
+ /*#4 */
+body {    /*loaction 1,2를 상하로 스크롤되게 만들기 */
+  /*display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;*/
+  display: flex;
+  flex-direction: row;
+  background: rgb(238, 227, 207);
+}
+
+.location1 {
+  width: 50%;
+  /*height: 100%;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: none;
+}
+
+.lacation2 {
+  background-color: none;
+  width: 50%;
+  height: 70%;
+}
+
+/*#5 */
+.wrapper {
+    width: 450px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+}
+   
+  /*#6*/
+.wrapper .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.wrapper .nav .current-date {
+    font-size: 24px;
+    font-weight: 600;
+}
+.wrapper .nav button {
+    width: 38px;
+    height: 38px;
+    font-size: 30px;
+    color: #878787;
+}
+
+  /*#7*/
+.calendar ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.calendar .weeks li {
+    font-weight: 500;
+}
+.calendar .days {
+    margin-bottom: 20px;
+}
+.calendar ul li {
+    /*#8*/
+    width: calc(100% / 7);
+    /*#9*/
+    position: relative;
+}
+.calendar .days li {
+    /*#10*/
+    z-index: 1;
+    margin-top: 30px;
+    cursor: pointer;
+}
+   
+  /*#11*/
+.days li.inactive {
+    background: #aaa;
+}
+
+.days li.active {
+    color: #fff;
+}
+.calendar .days li::before {
+    position: absolute;
+    content: '';
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: -1;
+}
+.days li:hover::before {
+    background: #f2f2f2;
+}
+.days li.active::before {
+    background: #008aff;
+}
+
+.location1 input {
+    font-size: 1rem;
+    background: none;
+    border: none;
+}
+
+/*************
+여기서부터 Todo
+**************/
+
+.todo-wrapper {
+  align-content: center;
+  justify-content: center;
+  margin-top: 3rem;
+  min-width: 600px;
+}
+
+.todo-title {
+  padding: 0.5rem;
+  text-align: center;
+  color: rosybrown;
+  font-size: 4rem;
+}
+
+.todo-box {
+  margin: 0 auto; /*수평 중앙 정렬하기*/
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  width: 80%;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.todo-input-box {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  height: 3rem;
+  border-bottom: 1px solid #ddd;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+button {
+  background-color: transparent;
+  border: 0;
+}
+
+.complete-all-btn {
+  color: gray;
+  min-width: none;
+  min-height: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.5rem 0.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  
+}
+
+.complete-all-btn.checked {
+  color: green
+}
+
+.todo-input {
+  width: 80%;
+  text-align: center;
+  border: 0;
+  outline: none;
+  font-size: 1.3rem;
+}
+
+.todo-item {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.todo-item:hover .delBtn {
+  opacity: 1;
+}
+
+.checkbox {
+  min-width: none;
+  min-height: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.5rem 0.5rem;
+  border-radius: 50px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  text-align: center;
+}
+
+.todo-item.checked .checkbox{
+  border: 2px solid darkgray;
+  color: green;
+}
+
+.todo {
+  font-size: 1rem;
+  padding: 0 1rem;
+  width: 80%;
+}
+
+.todo-item.checked .todo{
+font-style: italic;
+text-decoration: line-through;
+color: lightgray;
+}
+
+.delBtn {
+  opacity: 1;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.todo-top {
+  height: 3rem;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.button-group{
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.button-group button {
+  border: 1px solid #eee;
+  padding: 0.2rem 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.button-group button.selected {
+  border: 2px solid rosybrown;
+  padding: 0.2rem 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 8px;
+}
+
+.clear-completed-btn:hover {
+  font-style: italic;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.edit-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 590px;
+  height: 2.8rem;
+  margin: 0;
+}
+
+p.info {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #ccc;
+}
